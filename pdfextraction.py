@@ -18,23 +18,34 @@ def pdfextraction():
     updated 7/13/2022 using https://www.geeksforgeeks.org/extract-text-from-pdf-file-using-python/
     """
     
-    for filename in glob.iglob('**/*.pdf'):
+    
+    for filename in glob.iglob('**/*.pdf', recursive=True):
         print(filename)
-        
+        nuPg = 0
+        try:
         # creating a pdf file object
-        with open(filename, 'rb') as pdfFileObj:
-            pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
+            with open(filename, 'rb') as pdfFileObj:
+                pdfReader = PyPDF2.PdfFileReader(pdfFileObj, strict=False)
+
  
         # number of pages in pdf file
-        numPages = pdfReader.numPages
+                nuPg = pdfReader.numPages
+
+                pageCt = pdfReader.numPages
+
+                while pageCt >= 0:
+                    file = open(str(filename) + '.txt','a')
+                    pageObj = pdfReader.getPage(nuPg - 1)
+                    page = pageObj.extractText()
     
-        for page in pdfReader:
-            file = open(str(filename) + '.txt','a')
-    
-            for line in page:
-                file.write(line)
+                    for line in page:
+                        file.write(line)
+                        
+                    file.close()
+                    pageCt -= 1
             
-            file.close()
+        except:
+            print("Meanie " + filename + "is a mean file")
     return
 
 #I am a cool
