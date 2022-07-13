@@ -37,6 +37,8 @@ def pdfextraction():
             file.close()
     return
 
+#I am a cool
+
 #Main
 
 pdfextraction()
