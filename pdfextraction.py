@@ -29,13 +29,13 @@ def pdfextraction():
 
  
         # number of pages in pdf file
-                nuPg = pdfReader.numPages
+                #nuPg = pdfReader.numPages
 
                 pageCt = pdfReader.numPages
 
                 while pageCt >= 0:
                     file = open(str(filename) + '.txt','a')
-                    pageObj = pdfReader.getPage(nuPg - 1)
+                    pageObj = pdfReader.getPage(pageCt - 1)
                     page = pageObj.extractText()
     
                     for line in page:
